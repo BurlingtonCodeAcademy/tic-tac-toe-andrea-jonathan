@@ -1,23 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tic Tac Toe</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OK Tic Tac Toe</title>
+    <link type="text/css" rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <h1>Tic Tac Toe!</h1>
-  <div id='board'>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-  </div>
-  <button id='start'>Start Game</button>
+    <!-- !!! These buttons should be clickable. Pay attention to event listeners !!!  -->
+    <br>
+    <div class="buttons">
+        <button id="start" type="button">Start Game</button>
+        <button id="replay" type="button">New Game</button>
+    </div>
+    <br>
+    <!-- How to get this to display playerOne's name? -->
+
+    <form id="form">
+        <label>Player Name is: <input type="text" id="text"></label>
+
+        <input type=submit value="" />
+    </form>
+
+    <!-- Gave this an id because it's the only board drawn for 3x3 space -->
+
+    <div id="board">
+
+        <div id="game-grid">
+            <div class="cell" id="cell-0"></div> <!-- cell 0-->
+            <div class="cell" id="cell-1"></div> <!-- cell 1-->
+            <div class="cell" id="cell-2"></div> <!-- cell 2-->
+            <div class="cell" id="cell-3"></div> <!-- cell 3-->
+            <div class="cell" id="cell-4"></div> <!-- cell 4-->
+            <div class="cell" id="cell-5"></div> <!-- cell 5-->
+            <div class="cell" id="cell-6"></div> <!-- cell 6-->
+            <div class="cell" id="cell-7"></div> <!-- cell 7-->
+            <div class="cell" id="cell-8"></div> <!-- cell 8-->
+        </div>
+
+    </div>
+<!-- Try to add an incrementing counter (seconds) -->
+<!-- !!! Need to display who won/or tied !!! -->
+
+    <div class="endGame">
+        <div class="text"></div>
+    </div>
+
+    <script src="main.js"></script>
+
 </body>
+
 </html>

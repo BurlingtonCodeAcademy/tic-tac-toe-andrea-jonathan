@@ -1,0 +1,59 @@
+*{
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    display:flex;
+    justify-content: center;
+}
+
+#board{
+    background-color: blueviolet;
+    width: 500px;
+    height:500px;
+    margin:80px;
+    padding:40px;
+    border-radius: 20px;
+}
+
+h1{
+    text-align: center;
+}
+h1 + span {
+color:whitesmoke;
+}
+
+#game-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-gap:15px;
+    margin:10px 10px;
+}
+
+.cell{
+    display:grid;
+    height:115px;
+    width:115px;
+    background-color: violet;
+    border-color: black;
+}
+
+.buttons{
+    display:flex;
+    border:black 1px
+    }
+
+button{
+     height:50px;
+     width:80px;
+     margin: 20px 20px  ;
+     cursor: pointer;
+     background-color: blueviolet;
+    }
+
+.buttons :hover{
+background-color: chartreuse;
+}
