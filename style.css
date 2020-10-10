@@ -1,15 +1,16 @@
-*{
+/* * {
     box-sizing: border-box;
     margin:0;
     padding:0;
-}
+} */
 
-body{
+body {
     display:flex;
     justify-content: center;
 }
 
-#board{
+#board {
+    display: grid;
     background-color: blueviolet;
     width: 500px;
     height:500px;
@@ -18,42 +19,47 @@ body{
     border-radius: 20px;
 }
 
-h1{
+h1 {
     text-align: center;
 }
-h1 + span {
+
+h1 span {
 color:whitesmoke;
 }
 
-#game-grid{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-    grid-gap:15px;
-    margin:10px 10px;
-}
-
-.cell{
+.cell {
     display:grid;
     height:115px;
     width:115px;
     background-color: violet;
     border-color: black;
+    margin-top: 20px;
+    margin-bottom: 20px
 }
 
-.buttons{
-    display:flex;
-    border:black 1px
-    }
+.cell:hover {
+    background-color: chartreuse;
+}
 
-button{
+.buttons {
+    display:flex;
+    border:black 1px;
+}
+
+.rows {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+button {
      height:50px;
      width:80px;
-     margin: 20px 20px  ;
+     margin: 20px 20px;
      cursor: pointer;
-     background-color: blueviolet;
-    }
+     background-color: rgb(164, 107, 218);
+}
 
-.buttons :hover{
+.buttons :hover {
 background-color: chartreuse;
 }

@@ -5,48 +5,88 @@
 // Global variables
 let boardState = ["", "", "", "", "", "", "", "", ""];
 let gameActive = true;
-let startButton = document.getElementById('start');
 let rePlay = document.getElementById("replay");
-let currentPlayer = 'X';
+let playerOne = "X";
+let playerTwo = "O";
+let currentPlayer = playerOne;
 let form = document.getElementById('form'); // !!! Is this needed? !!!
+let onePlayerStart = document.getElementById("onePlayer");
+let twoPlayerStart = document.getElementById("twoPlayer");
+let whosUp = document.getElementById("whosUp");
+
+let cellZero = document.getElementById("cell-0");
+let cellOne = document.getElementById("cell-1");
+let cellTwo = document.getElementById("cell-2");
+let cellThree = document.getElementById("cell-3");
+let cellFour = document.getElementById("cell-4");
+let cellFive = document.getElementById("cell-5");
+let cellSix = document.getElementById("cell-6");
+let cellSeven = document.getElementById("cell-7");
+let cellEight = document.getElementById("cell-8");
+
+//
+
+let cellArray = [
+    cellZero, cellOne, cellTwo, cellFour, cellFive, cellSix, cellSeven, cellEight
+];
+
 
 // Getting by with a little help from const
 const itsWon = function() {`Player ${currentPlayer} is a winner!`};
 const isTied = function() {`It's a tie! Please start a new game.`};
 const onTurn = function() {`It's ${currentPlayer}'s turn.`};
 // Are lines 12-14 proper usage for template literals?
-const provide = document.querySelector('provideStatus');
-const computerPlayer = 'O';
-const cells = document.querySelectorAll('.cell'); // This *should* create the board
+const provide = document.getElementById('provideStatus');
+//const computerPlayer = 'O';
+const cells = document.getElementById('board'); // This *should* create the board?
 
-provide.innerHTML = onTurn();
+// provide.innerHTML = onTurn();
 
 
 // These win conditions have remained so throughout the ages. Anyone hear Gregorian chanting?
 
-const winConditions = [
-    [0, 1, 2], // row
-    [3, 4, 5], // row
-    [6, 7, 8], // row
-    [0, 3, 6], // column
-    [1, 4, 7], // column
-    [2, 5, 8], // column
-    [0, 4, 8], // diagonal
-    [6, 4, 2]  // diagonal
-];
+const winConditions = {
+    rowOne: [cellZero, cellOne, cellTwo], // row
+    rowTwo: [cellThree, cellFour, cellFive], // row
+    rowThree: [cellSix, cellSeven, cellEight], // row
+    columnOne: [cellZero, cellThree, cellSix], // column
+    columnTwo: [cellOne, cellFour, cellSeven], // column
+    columnThree: [cellTwo, cellFive, cellEight], // column
+    forwardSlash: [cellZero, cellFour, cellEight], // diagonal
+    backSlash: [cellSix, cellFour, cellTwo]  // diagonal
+};
 
 // This should put the current player's click into the proper cell
 
 function useClickedCell(whatClicked, cellIndex) {
     boardState[cellIndex] = playerOne;
-    whatClicked.innerHTML = playerOne;
+    whatClicked.textContent = playerOne;
 }
+
+/* --------------------- Player Buttons ----------------------- */
+
+onePlayerStart.addEventListener("click", () => {
+    onePlayerStart.disabled = true;
+    twoPlayerStart.disabled = true;
+})
+
+twoPlayerStart.addEventListener("click", () => {
+    onePlayerStart.disabled = true;
+    twoPlayerStart.disabled = true;
+})
 
 // This should allow for the current player to swap between currentPlayer and computerPlayer
 
 function takePlayerChange() {
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
-    provide.innerHTML = onTurn();
+    if (currentPlayer === playerOne) {
+        currentPlayer = playerTwo;
+        whosUp.textContent = currentPlayer;
+    } else if (currentPlayer === playerTwo) {
+        currentPlayer = playerOne;
+        whosUp.textContent = currentPlayer;
+    }
+
+    provide.textContent = onTurn();
 }
 
 function giveResults() {
@@ -67,7 +107,7 @@ function giveResults() {
     }
 
     if (isWin) { // Is this too close to variable shadowing?
-        provide.innerHTML = itsWon();
+        provide.textContent = itsWon();
         gameActive = false;
         return;
     }
@@ -75,16 +115,16 @@ function giveResults() {
     let itsTied = !boardState.includes("");
 
     if (itsTied) {
-        provide.innerHTML = isTied();
+        provide.textContent = isTied();
         gameActive = false;
         return;
     }
     takePlayerChange();
 }
 
-function makeCellClicked(clickCell) {
+/*function makeCellClicked(clickCell) {
     const clickCell = clickCell.target;
-    const clickedCellIndex = parseInt(whatClicked.getAttribute("cell-index"));
+    const clickedCellIndex = parseInt(whatClicked.getElementsByClassName("cell"));
 
     if (boardState[clickedCellIndex] !== "" || !gameActive) {
         return;
@@ -93,19 +133,21 @@ function makeCellClicked(clickCell) {
     useClickedCell(clickCell, clickedCellIndex);
     giveResults();
 
-}
+} */
 
 function restartGame() {
-    boardState = true;
-    currentPlayer = "X";
+    gameActive = true;
+    currentPlayer = playerOne;
     boardState = ["", "", "", "", "", "", "", "", ""];
-    provide.innerHTML = takePlayerChange();
-    document.querySelectorAll('cell').forEach(cell => cell.innerHTML = "")
+    provide.textContent = takePlayerChange();
+    onePlayerStart.disabled = false;
+    twoPlayerStart.disabled = false;
+    document.querySelectorAll('cell').forEach(cell => cell.textContent = "")
     
 }
 
 document.querySelectorAll("cell").forEach(cell => cell.addEventListener("click", makeCellClicked));
-document.querySelector("replay").addEventListener("click", restartGame);
+// document.querySelector("replay").addEventListener("click", restartGame);
 
 
 /*target.addEventListener('submit', function (event) {
@@ -113,3 +155,40 @@ document.querySelector("replay").addEventListener("click", restartGame);
     text = document.getElementById('text').value 
     }
 ) */
+
+/* ----- GJ - REFERENCE ONLY! DO NOT COPY DIRECTLY
+function fillSquare(event) {
+    if (gameMode === "twoPlayer") {
+        if (currentPlayer === playerOne) {
+            event.target.textContent = "X";
+            usedCellArray.push(event.target);
+        } else if (currentPlayer === playerTwo) {
+            event.target.textContent = "O";
+            usedCellArray.push(event.target);
+        }
+    } else if (gameMode === 'onePlayer') {
+        if (currentPlayer === playerOne) {
+            event.target.textContent = "X";
+            usedCellArray.push(event.target)
+            if (usedCellArray.length < 9) {
+                computer()
+            }
+        } else if (currentPlayer === playerTwo) {
+            event.target.textContent = "O";
+            usedCellArray.push(event.target);
+        }
+    }
+    declareWinner();
+    switchPlayer()
+    removeFillSquare(event);
+}*/
+
+/* ------- GJ FOR REFERENCE ONLY!!!
+function incrementSeconds() {
+    seconds += 1;
+    if (seconds < 10) {
+        gameTimer.textContent = "0" + seconds;
+    } else {
+        gameTimer.textContent = seconds;
+    }
+} */
