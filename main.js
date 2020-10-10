@@ -1,16 +1,26 @@
-// Begin by drawing the baord, including the start button
+// !!! Need to fix startButton (it doesn't click) !!!
 
-let beginBoard;
-let startButton = document.getElementById('start')
-let rePlay = document.getElementById("replay")
-let status = document.getElementById('status')
-let form = document.getElementById('form')
+// !!! Begin by drawing the baord, including the start button !!!
 
+// Global variables
+let boardState = ["", "", "", "", "", "", "", "", ""];
+let gameActive = true;
+let startButton = document.getElementById('start');
+let rePlay = document.getElementById("replay");
+let currentPlayer = 'X';
+let form = document.getElementById('form'); // !!! Is this needed? !!!
 
-// Historical assignments for human and computer, respectively
-
-const playerOne = 'X';
+// Getting by with a little help from const
+const itsWon = function() {`Player ${currentPlayer} is a winner!`};
+const isTied = function() {`It's a tie! Please start a new game.`};
+const onTurn = function() {`It's ${currentPlayer}'s turn.`};
+// Are lines 12-14 proper usage for template literals?
+const provide = document.querySelector('provideStatus');
 const computerPlayer = 'O';
+const cells = document.querySelectorAll('.cell'); // This *should* create the board
+
+provide.innerHTML = onTurn();
+
 
 // These win conditions have remained so throughout the ages. Anyone hear Gregorian chanting?
 
@@ -23,108 +33,83 @@ const winConditions = [
     [2, 5, 8], // column
     [0, 4, 8], // diagonal
     [6, 4, 2]  // diagonal
-]
+];
 
-const cells = document.querySelectorAll('.cell'); // This should create the board
+// This should put the current player's click into the proper cell
 
-// Below this line is all game flow ...
+function useClickedCell(whatClicked, cellIndex) {
+    boardState[cellIndex] = playerOne;
+    whatClicked.innerHTML = playerOne;
+}
 
-startGame();
+// This should allow for the current player to swap between currentPlayer and computerPlayer
 
-function startGame() {
-    document.querySelector(".endGame").style.display = "none";
-// //
+function takePlayerChange() {
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    provide.innerHTML = onTurn();
+}
 
-    Array.from(Array(9).keys());
+function giveResults() {
+    let isWin = false;
     for (let i = 0; i < cells.length; i++) {
-        cells[i].innerText = '';
-        cells[i].style.removeProperty('background-color');
-        cells[i].addEventListener('click', onTurn, false);
-    }
+        const winCondition = winConditions[i];
+        let alpha = boardState[winCondition[0]];
+        let bravo = boardState[winCondition[1]];
+        let charlie = boardState[winCondition[2]];
 
-startButton.addEventListener('click', function (event) {
-    event.target.disabled = true; // disables start button after it is clicked at start of game
-    })
-}
-
-//****** Event Listener applied to Submit input
-target.addEventListener('submit', function (event) {
-    event.preventDefault()
-    text = document.getElementById('text').value 
-    }
-)
-
-function onTurn (square) {
-    if (typeof beginBoard[square.target.id] === 'number') {
-        turn(square.target.id, playerOne)
-        if (!isTied()) turn(goodSpot(), computerPlayer);
-    }
-}
-
-function turn (squareId, player) {
-
-beginBoard[squareId] = player;
-    document.getElementById(squareId).innerText = player;
-        if (itsWon === itsOver(itsWon)) {
-        itsWon = isWin(beginBoard, player)
-    }
-}
-
-function isWin(board, player) {
-    let plays = board.reduce((alpha, bravo, charlie) => (bravo === player) ? alpha.concat[charlie] : alpha, []);
-    let itsWon = null;
-    for (let [index, win] of winConditions.entries()) {
-        if (win.every(elem => plays.indexOf(elem) > -1)) {
-            itsWon = {
-                index: index,
-                player: player
-            };
+        if (alpha === "" || bravo === "" || charlie === "") {
+            continue;
+        }
+        if (alpha === bravo && bravo === charlie) {
+            isWin = true;
             break;
         }
     }
-    return itsWon;
-}
 
-function itsOver(itsWon) {
-    for (let index of winConditions[itsWon.index]) {
-        document.getElementbyId(index).backgroundColor =
-            itsWon.player === playerOne ? color="cornflowerblue" : color="tomato";
+    if (isWin) { // Is this too close to variable shadowing?
+        provide.innerHTML = itsWon();
+        gameActive = false;
+        return;
     }
-    for (let i = 0; i < cells.length; i++) {
-        cells[i].removeEventListener('click', onTurn, false);
+
+    let itsTied = !boardState.includes("");
+
+    if (itsTied) {
+        provide.innerHTML = isTied();
+        gameActive = false;
+        return;
     }
-    announceWinner(itsWon.player ===
-       playerOne ? "You win! " : "You lose ... ");
+    takePlayerChange();
 }
 
-function announceWinner(whom) {
-    document.querySelector(".endGame").style.display = "block";
-    document.querySelector(".endGame .text").innerText = whom;
+function makeCellClicked(clickCell) {
+    const clickCell = clickCell.target;
+    const clickedCellIndex = parseInt(whatClicked.getAttribute("cell-index"));
+
+    if (boardState[clickedCellIndex] !== "" || !gameActive) {
+        return;
+    }
+
+    useClickedCell(clickCell, clickedCellIndex);
+    giveResults();
+
 }
 
-function rePlay() {
-    target.addEventListener('click', function (event) {
-        event.startButton.disabled = false;
-        }
-    )
+function restartGame() {
+    boardState = true;
+    currentPlayer = "X";
+    boardState = ["", "", "", "", "", "", "", "", ""];
+    provide.innerHTML = takePlayerChange();
+    document.querySelectorAll('cell').forEach(cell => cell.innerHTML = "")
+    
 }
 
-function openSquares() {
-    return beginBoard.filter(selection => typeof selection === 'number');
-}
+document.querySelectorAll("cell").forEach(cell => cell.addEventListener("click", makeCellClicked));
+document.querySelector("replay").addEventListener("click", restartGame);
 
-function goodSpot() {
-    return openSquares()[0];
-}
 
-function isTied() {
-    if (openSquares().length === 0) {
-        for (let i = 0; i < cells.length; i++) {
-            cells[i].style.backgroundColor = "cyan";
-            cells[i].removeEventListener('click', onTurn, false);
-        }
-        announceWinner("It's a tie!")
-            return true;
-        }
-    return false;
-}
+/*target.addEventListener('submit', function (event) {
+    event.preventDefault()
+    text = document.getElementById('text').value 
+    }
+) */

@@ -11,39 +11,40 @@
 
 <body>
     <!-- !!! These buttons should be clickable. Pay attention to event listeners !!!  -->
-    <br>
+    <h1>Tic Tac Toe!</h1>
     <div class="buttons">
         <button id="start" type="button">Start Game</button>
         <button id="replay" type="button">New Game</button>
     </div>
-    <br>
-    <!-- How to get this to display playerOne's name? -->
+    
+    <!-- How to get this to display playerOne's name to assign? -->
 
     <form id="form">
         <label>Player Name is: <input type="text" id="text"></label>
 
         <input type=submit value="" />
-    </form>
+    </form> <!-- !!! Fix how this form is rendered on page load !!! -->
 
     <!-- Gave this an id because it's the only board drawn for 3x3 space -->
 
     <div id="board">
 
-        <div id="game-grid">
-            <div class="cell" id="cell-0"></div> <!-- cell 0-->
-            <div class="cell" id="cell-1"></div> <!-- cell 1-->
-            <div class="cell" id="cell-2"></div> <!-- cell 2-->
-            <div class="cell" id="cell-3"></div> <!-- cell 3-->
-            <div class="cell" id="cell-4"></div> <!-- cell 4-->
-            <div class="cell" id="cell-5"></div> <!-- cell 5-->
-            <div class="cell" id="cell-6"></div> <!-- cell 6-->
-            <div class="cell" id="cell-7"></div> <!-- cell 7-->
-            <div class="cell" id="cell-8"></div> <!-- cell 8-->
-        </div>
+        <div id="grid-container">
+            <div class="cell" cell-index="0"></div> <!-- cell 0-->
+            <div class="cell" cell-index="1"></div> <!-- cell 1-->
+            <div class="cell" cell-index="2"></div> <!-- cell 2-->
+            <div class="cell" cell-index="3"></div> <!-- cell 3-->
+            <div class="cell" cell-index="4"></div> <!-- cell 4-->
+            <div class="cell" cell-index="5"></div> <!-- cell 5-->
+            <div class="cell" cell-index="6"></div> <!-- cell 6-->
+            <div class="cell" cell-index="7"></div> <!-- cell 7-->
+            <div class="cell" cell-index="8"></div> <!-- cell 8-->
+        </div> <!-- Trying cell-index to see if that generates an array of cells. -->
 
     </div>
 <!-- Try to add an incrementing counter (seconds) -->
 <!-- !!! Need to display who won/or tied !!! -->
+    <h2 class="provideStatus"></h2>
 
     <div class="endGame">
         <div class="text"></div>
