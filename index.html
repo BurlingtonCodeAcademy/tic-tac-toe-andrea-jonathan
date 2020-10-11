@@ -13,23 +13,29 @@
     <!-- !!! These buttons should be clickable. Pay attention to event listeners !!!  -->
 
     <div class="buttons">
-        <button id="onePlayer" type="button">Player One</button> Or
+        <button id="onePlayer" type="button">Player One</button>
         <button id="twoPlayer" type="button">Player Two</button>
         <button id="replay" type="button">New Game</button>
     </div>
 
-    <!-- How to get this to display playerOne's name to assign? -->
+    <div id="mode-wrapper">
+        <button id="singlePlayer" type="button">Player vs Computer</button>
+        <button id="twoPlayers" type="button">Player vs Player</button>
+    </div>
 
-    <form id="form">
-        <label>Player Name is: <input type="text" id="text"></label>
-
-        <input type=submit value="" />
+    <form id="form-wrapper">
+        <input type="text" id="playerName" placeholder="Player Name" />
+        <input type=submit />
     </form>
+
+    <!-- How to get this to display playerOne's name to assign? -->
 
     <div class="status-wrapper">
         <div id="playerTurn">
             Player Turn: <div id="whosUp"> </div>
         </div>
+        <div id="time-elapsed">Time Elapsed: </div>
+        <h2 id="provideStatus"></h2>
 
     </div>
 
@@ -60,10 +66,7 @@
     </div>
 
     <!-- Try to add an incrementing counter (seconds) -->
-    <!-- !!! Need to display who won/or tied !!! -->
-    <h2 id="provideStatus"></h2>
-
-    <script src="main.js"></script>
+<script src="main.js"></script>
 
 </body>
 
