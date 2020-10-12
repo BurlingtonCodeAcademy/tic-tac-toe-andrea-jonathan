@@ -1,0 +1,81 @@
+
+body{
+    display:flex;
+    justify-content: center;
+}
+
+#board{
+    display:flex;
+    background-color: blueviolet;
+    width: 500px;
+    height:500px;
+    margin:80px;
+    padding:40px;
+    border-radius: 20px;
+}
+
+
+h1{
+    display:flex;
+    text-align: center;
+}
+
+h1 span {
+color:whitesmoke;
+}
+
+
+
+.cell {
+    display:flex;
+    height:115px;
+    width:115px;
+    background-color: violet;
+    border-color: black;
+    margin-top: 20px;
+    margin-top: 20px;
+}
+
+.cell:hover{
+    background-color: chartreuse;
+}
+   
+button{
+     height:50px;
+     width:80px;
+     margin: 20px 20px;
+     cursor: pointer;
+     background-color: rgb(164, 107, 218)
+    }
+
+.buttons :hover{
+background-color: chartreuse;
+}  
+
+
+.rows{
+    display:flex;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+
+
+.buttons {
+    display:flex;
+    border:black 1px;
+}
+button {
+     height:50px;
+     width:80px;
+     margin: 20px 20px  ;
+     cursor: pointer;
+     background-color: rgb(164, 107, 218);
+}
+
+
+
+
+    
+
+

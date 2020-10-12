@@ -1,23 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tic Tac Toe</title>
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>OK Tic Tac Toe</title>
+  <link type="text/css" rel="stylesheet" href="style.css">
 </head>
+
+
 <body>
-  <h1>Tic Tac Toe!</h1>
-  <div id='board'>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
+  <!-- !!! These buttons should be clickable. Pay attention to event listeners !!!  -->
+  <div class="buttons">
+    <button id="onePlayer" type="button">Player One</button> Or
+    <button id="twoPlayer" type="button">Player Two</button>
+    <button id="replay" type="button">New Game</button>
   </div>
-  <button id='start'>Start Game</button>
+
+  <!-- How to get this to display playerOne's name to assign? -->
+  <form id="form">
+    <label>Player Name is: <input type="text" id="text"></label>
+    <input type=submit value="" />
+  </form> <!-- !!! Fix how this form is rendered on page load !!! -->
+
+
+  <div class="status-wrapper">
+    <div id="playerTurn">
+      Player Turn: <div id="whosUp"> </div>
+    </div>
+
+
+  </div>
+  <!-- Gave this an id because it's the only board drawn for 3x3 space -->
+  <div id="board">
+    <h1>Tic <span> Tac </span>Toe!</h1>
+
+    <div class=rows>
+
+      <div id="row-1">
+        <div class="cell" id="cell-0"></div>
+        <div class="cell" id="cell-1"></div>
+        <div class="cell" id="cell-2"></div>
+      </div>
+
+      <div id="row-2">
+        <div class="cell" id="cell-6"></div>
+        <div class="cell" id="cell-7"></div>
+        <div class="cell" id="cell-8"></div>
+      </div>
+
+      <div id="row-3">
+        <div class="cell" id="cell-3"></div>
+        <div class="cell" id="cell-4"></div>
+        <div class="cell" id="cell-5"></div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+  <!-- Try to add an incrementing counter (seconds) -->
+  <!-- !!! Need to display who won/or tied !!! -->
+  
+  <h2 class="provideStatus"></h2>
+  <script src="main.js"></script>
 </body>
+
 </html>
