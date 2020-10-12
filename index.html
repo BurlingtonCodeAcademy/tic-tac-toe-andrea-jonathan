@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <!-- !!! These buttons should be clickable. Pay attention to event listeners !!!  -->
+    <!-- These buttons have event listener 'click' on them  -->
 
     <div class="buttons">
         <button id="onePlayer" type="button">Player vs Computer</button>
@@ -24,12 +24,14 @@
         <button id="submitButton" type="submit">Submit</button>
     </form>
 
-    <!-- How to get this to display playerOne's name to assign? -->
+    <!-- Upon revision, submit should preventDefault and store entered player names -->
 
     <div class="status-wrapper">
         <div id="playerTurn">
             Player Turn: <div id="whosUp"> </div>
         </div>
+    <!-- timer function works kind of shakily -->
+    
         <div id="time-elapsed">Time Elapsed: </div>
         <h2 id="provideStatus"></h2>
 
@@ -61,7 +63,6 @@
         </div>
     </div>
 
-    <!-- Try to add an incrementing counter (seconds) -->
     <script src="./JS/main.js"></script>
 
 </body>

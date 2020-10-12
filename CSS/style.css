@@ -1,16 +1,10 @@
-/* * {
-    box-sizing: border-box;
-    margin:0;
-    padding:0;
-} */
-
-body {
+body{
     display:flex;
     justify-content: center;
 }
 
-#board {
-    display: grid;
+#board{
+    display:flex;
     background-color: blueviolet;
     width: 500px;
     height:500px;
@@ -19,7 +13,8 @@ body {
     border-radius: 20px;
 }
 
-h1 {
+h1{
+    display:flex;
     text-align: center;
 }
 
@@ -28,17 +23,35 @@ color:whitesmoke;
 }
 
 .cell {
-    display:grid;
+    display:flex;
     height:115px;
     width:115px;
     background-color: violet;
     border-color: black;
     margin-top: 20px;
-    margin-bottom: 20px
+    margin-top: 20px;
 }
 
-.cell:hover {
+.cell:hover{
     background-color: chartreuse;
+}
+   
+button{
+     height:50px;
+     width:80px;
+     margin: 20px 20px;
+     cursor: pointer;
+     background-color: rgb(164, 107, 218)
+}
+
+.buttons :hover{
+background-color: chartreuse;
+}  
+
+.rows{
+    display:flex;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
 }
 
 .buttons {
@@ -46,20 +59,10 @@ color:whitesmoke;
     border:black 1px;
 }
 
-.rows {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
-}
-
 button {
      height:50px;
      width:80px;
-     margin: 20px 20px;
+     margin: 20px 20px  ;
      cursor: pointer;
      background-color: rgb(164, 107, 218);
-}
-
-.buttons :hover {
-background-color: chartreuse;
 }
