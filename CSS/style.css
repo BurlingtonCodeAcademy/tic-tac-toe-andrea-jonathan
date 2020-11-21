@@ -27,7 +27,7 @@ color:whitesmoke;
     height:115px;
     width:115px;
     background-color: violet;
-    border-color: black;
+    border: 1px solid black;
     margin-top: 20px;
     margin-top: 20px;
 }
@@ -65,4 +65,9 @@ button {
      margin: 20px 20px  ;
      cursor: pointer;
      background-color: rgb(164, 107, 218);
+}
+
+/* -- Everything under this highlights the win condiion -- */
+.winner {
+    color: orangered;
 }
