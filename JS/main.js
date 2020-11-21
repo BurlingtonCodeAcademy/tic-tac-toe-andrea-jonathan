@@ -5,7 +5,7 @@ let gameActive = true;
 let newGame = document.getElementById("newGame");
 let playerOne = "X";
 let playerTwo = "O";
-let computerPlayer = '';
+//let computerPlayer = '';
 let currentPlayer = playerOne;
 let previousPlayer;
 let makePlayerName = document.getElementById("playerName");
@@ -14,17 +14,17 @@ let onePlayerStart = document.getElementById("onePlayer");
 let twoPlayerStart = document.getElementById("twoPlayer");
 
 let whosUp = document.getElementById("whosUp");
-let provide = document.getElementById('provideStatus');
+let counter = document.getElementById('provideStatus');
 
 // Lines 20-23 deal with story(ies) that don't yet work
 let seconds = 0;
 let modeChoice; 
 let timer;
 let winner;
+let elapsedTime = document.getElementById("time-elapsed")
 // ______________________________________________
 
 // Board Structure
-let cellZero = document.getElementById("cell-0");
 let cellOne = document.getElementById("cell-1");
 let cellTwo = document.getElementById("cell-2");
 let cellThree = document.getElementById("cell-3");
@@ -33,10 +33,11 @@ let cellFive = document.getElementById("cell-5");
 let cellSix = document.getElementById("cell-6");
 let cellSeven = document.getElementById("cell-7");
 let cellEight = document.getElementById("cell-8");
+let cellNine = document.getElementById("cell-9");
 
 let clickedCells = [];
 let cellArray = [
-    cellZero, cellOne, cellTwo, cellThree, cellFour, cellFive, cellSix, cellSeven, cellEight
+    cellOne, cellTwo, cellThree, cellFour, cellFive, cellSix, cellSeven, cellEight, cellNine
 ];
 
 
@@ -44,8 +45,6 @@ let cellArray = [
 const itsWon = function () { `Player ${currentPlayer} is a winner!` };
 const isTied = function () { `It's a tie! Please start a new game.` };
 const onTurn = function () { `It's ${currentPlayer}'s turn.` };
-// Are lines 12-14 proper usage for template literals?
-const provide = document.querySelector('provideStatus');
 
 // This *should* create the board
 const cells = document.querySelectorAll('.cell');
@@ -54,14 +53,14 @@ const cells = document.querySelectorAll('.cell');
 // These win conditions have remained so throughout the ages. Anyone hear Gregorian chanting?
 
 const winConditions = {
-    rowOne: [cellZero, cellOne, cellTwo], // row
-    rowTwo: [cellThree, cellFour, cellFive], // row
-    rowThree: [cellSix, cellSeven, cellEight], // row
-    columnOne: [cellZero, cellThree, cellSix], // column
-    columnTwo: [cellOne, cellFour, cellSeven], // column
-    columnThree: [cellTwo, cellFive, cellEight], // column
-    forwardSlash: [cellZero, cellFour, cellEight], // diagonal
-    backSlash: [cellSix, cellFour, cellTwo]  // diagonal
+    rowOne: [cellOne, cellTwo, cellThree], // row
+    rowTwo: [cellFour, cellFive, cellSix], // row
+    rowThree: [cellSeven, cellEight, cellNine], // row
+    columnOne: [cellOne, cellFour, cellSeven], // column
+    columnTwo: [cellTwo, cellFive, cellEight], // column
+    columnThree: [cellThree, cellSix, cellNine], // column
+    forwardSlash: [cellOne, cellFive, cellNine], // diagonal
+    backSlash: [cellSeven, cellFive, cellThree]  // diagonal
 };
 
 /* --------------------- Button Event Listeners----------------------- */
@@ -70,13 +69,14 @@ onePlayerStart.addEventListener("click", () => {
     onePlayerStart.disabled = true;
     twoPlayerStart.disabled = true;
     whosUp.textContent = currentPlayer;
-    start();
+    start(cellArray);
 })
 
 twoPlayerStart.addEventListener("click", () => {
     onePlayerStart.disabled = true;
     twoPlayerStart.disabled = true;
-    start();
+    whosUp.textContent = currentPlayer;
+    start(cellArray);
 })
 
 submit.addEventListener('click', function (event) {
@@ -89,25 +89,66 @@ submit.addEventListener('click', function (event) {
     text = document.getElementById('playerName').value;
 })
 
-newGame.addEventListener("click", clicky);
+//newGame.addEventListener("click", eachCell);
+
+// Provides ability to select the desired game (like in Guess the Number)
+function start(event) {
+    cellArray.forEach(function (eachCell) {
+        eachCell.addEventListener("click", useClickedCell);
+    });
+    //timer = setInterval(countItOut, 1000);
+    //seconds ++
+    //elapsedTime.textContent = seconds + " have elapsed.";
+
+    if (event.target === "twoPlayer") {
+        modeChoice = "twoPlayer";
+    } else {
+        modeChoice = "onePlayer";
+    }
+} 
+
+/*function computerGame() {
+    let computerClick = clickedCells[Math.floor(Math.random() * cellArray.length)];
+    while (clickedCells.includes(computerClick)) {
+        computerClick = cellArray[Math.floor(Math.random() * cellArray.length)]
+    }
+    computerClick.click()
+} */
 
 // This should put the current player's click into the proper cell
 function useClickedCell(event) {
     
-    if (event.target.textContent === "") {
+    if (modeChoice === "twoPlayer") {
         if (currentPlayer === playerOne) {
             event.target.textContent = "X";
+            console.log("These are the " + clickedCells);
             clickedCells.push(event.target);
-            currentPlayer = playerTwo;
-            previousPlayer = playerOne;
         } else if (currentPlayer === playerTwo) {
             event.target.textContent = "O";
             clickedCells.push(event.target);
-            currentPlayer = playerOne;
-            previousPlayer = playerTwo;
         }
+    } else if (modeChoice === "onePlayer") {
+        if (currentPlayer === playerOne) {
+            event.target.textContent = "X";
+            clickedCells.push(event.target);
+        } else if (currentPlayer === playerTwo) {
+            event.target.textContent = "O";
+            clickedCells.push(event.target);
+        }   
     }
-    announceWinner();
+    //announceWinner();
+    switchPlayer();
+}
+
+//function for switching the player turn
+function switchPlayer() {
+    if (currentPlayer === playerOne) {
+        currentPlayer = playerTwo;
+        whosUp.textContent = currentPlayer;
+    } else if (currentPlayer === playerTwo) {
+        currentPlayer = playerOne;
+        whosUp.textContent = currentPlayer;
+    }
 }
 
 //This will announce the winner when a win condition is met
@@ -152,34 +193,6 @@ function namePlayerTwo(event) {
     }
     console.log(playerTwo + " is player two");
 }
-
-// Provides ability to select the desired game (like in Guess the Number)
-
-function start() {
-    cellArray.forEach(function (clicky) {
-        clicky.addEventListener("click", useClickedCell);
-    });
-    timer = setInterval(countItOut, 1000);
-    seconds ++
-    elapsedTime.textContent = seconds + " have elapsed.";
-
-    // Lines 166-182 deal with a story that does not yet work
-
-    /*if (event.target.id === "twoPlayer") {
-        modeChoice = 2;
-    } else {
-        modeChoice = 1;
-        playerTwo = computerPlayer;
-    } */
-} 
-
-/*function computerGame() {
-    let computerClick = clickedCells[Math.floor(Math.random() * cellArray.length)];
-    while (clickedCells.includes(computerClick)) {
-        computerClick = cellArray[Math.floor(Math.random() * cellArray.length)]
-    }
-    computerClick.click()
-} */
 
 // -------------- Restarts game, clears board, re-enables the start buttons, should allow for new player name input.
 
