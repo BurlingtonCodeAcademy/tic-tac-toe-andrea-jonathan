@@ -131,6 +131,7 @@ cellArray.forEach(function (cell) {
 })
 }
 
+// this function 
 function computerPlayer() {
  let computerClick = cellArray[Math.floor(Math.random() * cellArray.length)];
    while (clickedCells.includes(computerClick)) {
@@ -139,8 +140,9 @@ function computerPlayer() {
     computerClick.click()
 }
 
-// This should put the current player's click into the proper cell
+// This puts the current player click on the board
 function useClickedCell(event) {
+    // this is for the player vs player
   if (modeChoice === "twoPlayer") {
     if (currentPlayer === playerOne) {
       event.target.textContent = "X";
@@ -150,6 +152,7 @@ function useClickedCell(event) {
       clickedCells.push(event.target);
     }
   } else if (modeChoice === "onePlayer") {
+      // this is for the computer vs player
     if (currentPlayer === playerOne) {
       event.target.textContent = "X";
       clickedCells.push(event.target);
