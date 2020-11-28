@@ -23,7 +23,6 @@ color:whitesmoke;
 }
 
 .cell {
-    display:flex;
     height:115px;
     width:115px;
     background-color: violet;
@@ -49,7 +48,7 @@ background-color: chartreuse;
 }  
 
 .rows{
-    display:flex;
+    display:grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
 }
@@ -69,5 +68,10 @@ button {
 
 /* -- Everything under this highlights the win condiion -- */
 .winner {
-    color: orangered;
+    background-color:red;
+    height:115px;
+    width:115px;
+    border: 1px solid black;
+    margin-top: 20px;
+    margin-top: 20px;
 }
