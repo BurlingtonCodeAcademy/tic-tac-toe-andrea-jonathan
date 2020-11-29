@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <!-- These buttons have event listener 'click' on them  -->
+    <!-- These buttons now have "click" event on them  -->
 
     <div class="buttons">
         <button id="onePlayer" type="button">Player vs Computer</button>
@@ -18,20 +18,20 @@
         <button id="newGame" type="button">New Game</button>
     </div>
 
-
+    <!-- Added new input field for second human player name -->
     <form id="form-wrapper">
         <input type="text" id="playerNameX" placeholder="Name for X" />
         <input type="text" id="playerNameO" placeholder="Name for O" />
         <button id="submitButton" type="submit">Submit</button>
     </form>
 
-    <!-- Upon revision, submit should preventDefault and store entered player names -->
+    <!-- Displays current player turn on page -->
 
     <div class="status-wrapper">
         <div id="playerTurn">
             Player Turn: <div id="whosUp"> </div>
         </div>
-    <!-- timer function works kind of shakily -->
+    <!-- displays time elapsed on page -->
     
         <div id="time-elapsed">Time Elapsed: </div>
         <h2 id="winStatus"></h2>
