@@ -1,5 +1,4 @@
 // Global variables
-
 let gameActive = true;
 let playerOne = "X";
 let playerTwo = "O";
@@ -18,7 +17,6 @@ let modeChoice;
 let timer;
 let winner;
 let elapsedTime = document.getElementById("time-elapsed");
-// ______________________________________________
 
 // Board Structure
 let cellOne = document.getElementById("cell-1");
@@ -31,7 +29,10 @@ let cellSeven = document.getElementById("cell-7");
 let cellEight = document.getElementById("cell-8");
 let cellNine = document.getElementById("cell-9");
 
+// As each cell is clicked, it's pushed into this empty array
 let clickedCells = [];
+
+//This array is used to track clicked cells to prevent overwriting their content
 let cellArray = [
   cellOne,
   cellTwo,
@@ -44,11 +45,10 @@ let cellArray = [
   cellNine,
 ];
 
-// This creates the game board
+// This helps create the game board
 const cells = document.querySelectorAll(".cell");
 
 // Win Conditions
-
 const winConditions = {
   rowOne: [cellOne, cellTwo, cellThree], // row
   rowTwo: [cellFour, cellFive, cellSix], // row
@@ -60,7 +60,7 @@ const winConditions = {
   backSlash: [cellSeven, cellFive, cellThree], // diagonal
 };
 
-/* --------------------- Button Event Listeners----------------------- */
+// Button Event Listeners
 
 onePlayerStart.addEventListener("click", (event) => {
   onePlayerStart.disabled = true;
@@ -89,14 +89,14 @@ resetGame.addEventListener("click", function () {
   resetBoard(cellArray)
 });
 
-// Provides ability to select the desired game mode
+// Provides ability to choose the desired game mode & starts timer at beginning of game
+// In order to only have players be X and O (no names entered), the name input fields must be left blank when Submit is clicked
 function start(event) {
   cellArray.forEach(function (eachCell) {
     eachCell.addEventListener("click", useClickedCell);
   });
   timer = setInterval(gameTimer, 1000);
 
-  console.log(event.target);
   if (event.target.id === "twoPlayer") {
     modeChoice = "twoPlayer";
   } else {
@@ -105,7 +105,7 @@ function start(event) {
   }
 }
 
-// These functions restart the game, clears the board, re-enables the start buttons, allows for new player name input.
+// Removes the click-ability from each cell
 function stopGame(cellArray) {
   cellArray.forEach(function (cell) {
     cell.removeEventListener("click", useClickedCell);
@@ -113,6 +113,7 @@ function stopGame(cellArray) {
 
 }
 
+// Clears the board when a new game is begun, after prior game has finished
 function resetBoard(cellArray) {
   cellArray.forEach(function (cell) {
     cell.textContent = ''
@@ -128,7 +129,7 @@ function resetBoard(cellArray) {
   winner = false
 }
 
-// this function allows for human vs computer mode
+// Allows for human vs computer mode (one human)
 function computerPlayer() {
   let computerClick = cellArray[Math.floor(Math.random() * cellArray.length)];
   while (clickedCells.includes(computerClick)) {
@@ -137,16 +138,16 @@ function computerPlayer() {
   computerClick.click()
 }
 
-// This puts the current player click on the board
+// Puts the current player's click on the selected cell
 function useClickedCell(event) {
-  // this is for the player vs player mode (human vs human)
-    if (currentPlayer === playerOne) {
-      event.target.textContent = "X";
-      clickedCells.push(event.target);
-    } else if (currentPlayer === playerTwo) {
-      event.target.textContent = "O";
-      clickedCells.push(event.target);
-    }
+  // Allows for X or O content (whether named humans or not, or human vs computer) within a cell
+  if (currentPlayer === playerOne) {
+    event.target.textContent = "X";
+    clickedCells.push(event.target);
+  } else if (currentPlayer === playerTwo) {
+    event.target.textContent = "O";
+    clickedCells.push(event.target);
+  }
   announceWinner();
   switchPlayer();
   removeClickedCell(event);
@@ -155,7 +156,7 @@ function useClickedCell(event) {
   }
 }
 
-// Switchesthe player turn
+// Switches the player turn
 function switchPlayer() {
   if (currentPlayer === playerOne) {
     currentPlayer = playerTwo;
@@ -172,7 +173,7 @@ function removeClickedCell(event) {
   event.target.addEventListener("click", addAlert);
 }
 
-function addAlert () {
+function addAlert() {
   alert("Please click a different cell!");
 }
 
@@ -186,10 +187,7 @@ function announceWinner() {
     ) {
       winner = true;
       showWinner(combination);
-      console.log(combination);
-
       gameWinner.textContent = currentPlayer + " has WON!";
-      console.log(previousPlayer);
       stopGame(cellArray);
       stopGameTimer()
     }
@@ -197,31 +195,29 @@ function announceWinner() {
   isTied();
 }
 
-// Highlights the winning condition
+// Highlights the winning condition in an obvious, contrasting color
 function showWinner(combination) {
   combination.forEach(function (winConditions) {
     winConditions.className = "winner";
   });
 }
 
-// Shows that a tie game has occurred
+// Shows that a tie game has occurred (no color change on the cells)
 function isTied() {
-  console.log(clickedCells.length)
   if (clickedCells.length === 9 && !winner) {
-      gameWinner.textContent = " Oops! It's a draw. Please click New Game."
-      stopGame(cellArray);
-      stopGameTimer()
+    gameWinner.textContent = " Oops! It's a draw. Please click New Game."
+    stopGame(cellArray);
+    stopGameTimer()
   }
 }
 
-// Allows the player name entered to be tracked
+// Allows the human player names entered to be tracked
 function namePlayerOne() {
   if (playerOneName.value === "") {
     playerOne = "X";
   } else {
     playerOne = playerOneName.value;
     playerOneName.value = "";
-    console.log(playerOne + " is player one");
   }
 }
 
@@ -231,7 +227,6 @@ function namePlayerTwo() {
   } else {
     playerTwo = playerTwoName.value;
     playerTwoName.value = "";
-    console.log(playerTwo + " is player two");
   }
 }
 
@@ -239,9 +234,9 @@ function namePlayerTwo() {
 function gameTimer() {
   seconds += 1;
   if (seconds < 10) {
-    elapsedTime.textContent = "0" + seconds + " has elapsed";
+    elapsedTime.textContent = "0" + seconds + " seconds have elapsed";
   } else {
-    elapsedTime.textContent = seconds + " has elapsed";
+    elapsedTime.textContent = seconds + " seconds have elapsed";
   }
 
 }
