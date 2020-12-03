@@ -1,23 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tic Tac Toe</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>OK Tic Tac Toe</title>
+    <link type="text/css" rel="stylesheet" href="./CSS/style.css">
 </head>
+
 <body>
-  <h1>Tic Tac Toe!</h1>
-  <div id='board'>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-    <div class='cell'></div>
-  </div>
-  <button id='start'>Start Game</button>
+    <!-- These buttons now have "click" event on them  -->
+
+    <div class="buttons">
+        <button id="onePlayer" type="button">Player vs Computer</button>
+        <button id="twoPlayer" type="button">Player vs Player</button>
+        <button id="newGame" type="button">New Game</button>
+    </div>
+
+    <!-- Added new input field for second human player name -->
+    <form id="form-wrapper">
+        <input type="text" id="playerNameX" placeholder="Name for X" />
+        <input type="text" id="playerNameO" placeholder="Name for O" />
+        <button id="submitButton" type="submit">Submit</button>
+    </form>
+
+    <!-- Displays current player turn on page -->
+
+    <div class="status-wrapper">
+        <div id="playerTurn">
+            Player Turn: <div id="whosUp"> </div>
+        </div>
+        <!-- displays time elapsed on page -->
+
+        <div id="time-elapsed">Time Elapsed: </div>
+        <h2 id="winStatus"></h2>
+
+    </div>
+
+    <!-- Gave this an id because it's the only board drawn for 3x3 space -->
+
+    <div id="board">
+        <h1> Tic <span> Tac </span> Toe!</h1>
+        <div class="rows">
+            <!-- Originally started with 0-8 cell numbering, but simplified to 1-9 -->
+            <div id="row-1">
+                <div class="cell" id="cell-1"></div>
+                <div class="cell" id="cell-2"></div>
+                <div class="cell" id="cell-3"></div>
+            </div>
+
+            <div id="row-2">
+                <div class="cell" id="cell-4"></div>
+                <div class="cell" id="cell-5"></div>
+                <div class="cell" id="cell-6"></div>
+            </div>
+
+            <div id="row-3">
+                <div class="cell" id="cell-7"></div>
+                <div class="cell" id="cell-8"></div>
+                <div class="cell" id="cell-9"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./JS/main.js"></script>
+
 </body>
+
 </html>
